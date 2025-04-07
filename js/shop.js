@@ -1,14 +1,11 @@
-// If you have time, you can move this variable "products" to a json or js file and load the data in this js. It will look more professional
 import { products } from "./dummyData.js";
 
-// Improved version of cartList. Cart is an array of products (objects), but each one has a quantity field to define its quantity, so these products are not repeated.
 const cart = [];
 
 let total = 0;
 
 // Exercise 1
-function buy(id) {
-	console.log(`botonClicado`);
+window.buy = function (id) {
 	const foundItem = products.find((element) => element.id === id);
 	if (foundItem) {
 		let updatedfoundItem = {};
@@ -18,7 +15,7 @@ function buy(id) {
 			: (updatedfoundItem = { ...foundItem, quantity: 1 });
 		if (!foundItemCart) cart.push(updatedfoundItem);
 	}
-}
+};
 
 // Exercise 2
 function cleanCart() {}
