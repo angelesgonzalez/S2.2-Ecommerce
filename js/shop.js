@@ -18,11 +18,16 @@ window.buy = function (id) {
 };
 
 // Exercise 2
-function cleanCart() {}
+window.cleanCart = function () {
+	cart.length = 0;
+	console.log(cart);
+};
 
 // Exercise 3
 function calculateTotal() {
-	// Calculate total price of the cart using the "cartList" array
+	const total = cart.reduce(
+		(accumulator, currentValue) => accumulator + currentValue
+	);
 }
 
 // Exercise 4
