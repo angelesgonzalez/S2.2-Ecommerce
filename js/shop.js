@@ -6,14 +6,14 @@ let total = 0;
 
 // Exercise 1
 window.buy = function (id) {
-	const foundItem = products.find((element) => element.id === id);
-	if (foundItem) {
-		let updatedfoundItem = {};
-		const foundItemCart = cart.find((element) => element.id === foundItem.id);
-		foundItemCart
-			? foundItemCart.quantity++
-			: (updatedfoundItem = { ...foundItem, quantity: 1 });
-		if (!foundItemCart) cart.push(updatedfoundItem);
+	const product = products.find((element) => element.id === id);
+	if (product) {
+		let newCartItem = {};
+		const existingCartItem = cart.find((element) => element.id === product.id);
+		existingCartItem
+			? existingCartItem.quantity++
+			: (newCartItem = { ...product, quantity: 1 });
+		if (!existingCartItem) cart.push(newCartItem);
 	}
 };
 
@@ -25,6 +25,7 @@ window.cleanCart = function () {
 	if (cartList) cartList.innerHTML = "";
 	if (totalPrice) totalPrice.innerHTML = 0;
 };
+
 // Exercise 3
 function calculateTotal() {
 	const total = cart.reduce(
