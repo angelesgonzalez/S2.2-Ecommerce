@@ -8,12 +8,20 @@ let total = 0;
 window.buy = function (id) {
 	const addProduct = (id) => {
 		const product = products.find((element) => element.id === id);
-		if (product) cart.push({ ...product, quantity: 1 });
+		if (product)
+			cart.push({
+				...product,
+				quantity: 1,
+				getSubtotal: function () {
+					return this.price * this.quantity;
+				},
+			});
 	};
 
 	const existingCartItem = cart.find((element) => element.id === id);
 	existingCartItem ? existingCartItem.quantity++ : addProduct(id);
-	console.log(cart);
+	calculateSubtotals();
+	calculateTotal();
 };
 
 // Exercise 2
@@ -24,16 +32,28 @@ window.cleanCart = function () {
 	if (cartList) cartList.innerHTML = "";
 	if (totalPrice) totalPrice.innerHTML = 0;
 };
+
 // Exercise 3
 function calculateTotal() {
-	const total = cart.reduce(
-		(accumulator, currentValue) => accumulator + currentValue
-	);
+	for (let i = 0; i < cart.length; i++) {
+		total += cart[i].subTotal;
+	}
+	return total;
 }
 
 // Exercise 4
-function applyPromotionsCart() {
-	// Apply promotions to each item in the array "cart"
+function calculateSubtotals() {
+	cart.forEach((element) => {
+		const subTotal = element.getSubtotal();
+		if (element.offer && element.quantity >= element.offer.number) {
+			element.subTotalWithDiscount = Math.round(
+				subTotal * (1 - element.offer.percent / 100)
+			);
+			element.subTotal = subTotal;
+		} else {
+			element.subTotal = subTotal;
+		}
+	});
 }
 
 // Exercise 5
