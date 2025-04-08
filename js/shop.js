@@ -14,7 +14,7 @@ window.buy = function (id) {
 				quantity: 1,
 				subtotal: function () {
 					if (this.offer) {
-						return;
+						return `este objeto tiene promo`;
 					} else {
 						return this.price * this.quantity;
 					}
@@ -25,7 +25,7 @@ window.buy = function (id) {
 	const existingCartItem = cart.find((element) => element.id === id);
 	existingCartItem ? existingCartItem.quantity++ : addProduct(id);
 
-	console.log(cart);
+	calculateTotal();
 };
 
 // Exercise 2
@@ -39,16 +39,12 @@ window.cleanCart = function () {
 
 // Exercise 3
 function calculateTotal() {
-	//chequear si tiene .offer
-	//multiplicar .cantidad x .precio
-	//adjuntar subtotal al objeto
-	// bucle for para sumar el total del carrito
+	let total = 0;
+	for (let i = 0; i < cart.length; i++) {
+		total += cart[i].subtotal();
+	}
 
-	for (let i = 0; i < cart.length; i++) {}
-
-	// const total = cart.reduce(
-	// 	(accumulator, currentValue) => accumulator + currentValue
-	// );
+	return total;
 }
 
 // Exercise 4
