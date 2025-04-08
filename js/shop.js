@@ -12,18 +12,16 @@ window.buy = function (id) {
 			cart.push({
 				...product,
 				quantity: 1,
-				subtotal: function () {
-					if (this.offer) {
-						return `este objeto tiene promo`;
-					} else {
-						return this.price * this.quantity;
-					}
+				getSubtotal: function () {
+					return this.price * this.quantity;
 				},
 			});
 	};
 
 	const existingCartItem = cart.find((element) => element.id === id);
 	existingCartItem ? existingCartItem.quantity++ : addProduct(id);
+	calculateSubtotals();
+	console.log(cart);
 
 	calculateTotal();
 };
@@ -39,17 +37,26 @@ window.cleanCart = function () {
 
 // Exercise 3
 function calculateTotal() {
-	let total = 0;
 	for (let i = 0; i < cart.length; i++) {
-		total += cart[i].subtotal();
+		total += cart[i].subTotal;
 	}
-
+	console.log(`total`, total);
 	return total;
 }
 
 // Exercise 4
-function applyPromotionsCart() {
-	// Apply promotions to each item in the array "cart"
+function calculateSubtotals() {
+	cart.forEach((element) => {
+		const subTotal = element.getSubtotal();
+		if (element.offer && element.quantity >= element.offer.number) {
+			element.subTotalWithDiscount = Math.round(
+				subTotal * (1 - element.offer.percent / 100)
+			);
+			element.subTotal = subTotal;
+		} else {
+			element.subTotal = subTotal;
+		}
+	});
 }
 
 // Exercise 5
