@@ -14,6 +14,7 @@ window.buy = function (id) {
 			? existingCartItem.quantity++
 			: (newCartItem = { ...product, quantity: 1 });
 		if (!existingCartItem) cart.push(newCartItem);
+		console.log(cart);
 	}
 };
 
@@ -28,9 +29,16 @@ window.cleanCart = function () {
 
 // Exercise 3
 function calculateTotal() {
-	const total = cart.reduce(
-		(accumulator, currentValue) => accumulator + currentValue
-	);
+	//chequear si tiene .offer
+	//multiplicar .cantidad x .precio
+	//adjuntar subtotal al objeto
+	// bucle for para sumar el total del carrito
+
+	for (let i = 0; i < cart.length; i++) {}
+
+	// const total = cart.reduce(
+	// 	(accumulator, currentValue) => accumulator + currentValue
+	// );
 }
 
 // Exercise 4
