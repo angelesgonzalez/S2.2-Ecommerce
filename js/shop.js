@@ -19,10 +19,12 @@ window.buy = function (id) {
 
 // Exercise 2
 window.cleanCart = function () {
+	const cartList = document.getElementById("cart_list");
+	const totalPrice = document.getElementById("total_price");
 	cart.length = 0;
-	console.log(cart);
+	if (cartList) cartList.innerHTML = "";
+	if (totalPrice) totalPrice.innerHTML = 0;
 };
-
 // Exercise 3
 function calculateTotal() {
 	const total = cart.reduce(
