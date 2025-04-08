@@ -21,8 +21,6 @@ window.buy = function (id) {
 	const existingCartItem = cart.find((element) => element.id === id);
 	existingCartItem ? existingCartItem.quantity++ : addProduct(id);
 	calculateSubtotals();
-	console.log(cart);
-
 	calculateTotal();
 };
 
@@ -40,7 +38,6 @@ function calculateTotal() {
 	for (let i = 0; i < cart.length; i++) {
 		total += cart[i].subTotal;
 	}
-	console.log(`total`, total);
 	return total;
 }
 
