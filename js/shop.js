@@ -6,15 +6,14 @@ let total = 0;
 
 // Exercise 1
 window.buy = function (id) {
-	const product = products.find((element) => element.id === id);
-	if (product) {
-		let newCartItem = {};
-		const existingCartItem = cart.find((element) => element.id === product.id);
-		existingCartItem
-			? existingCartItem.quantity++
-			: (newCartItem = { ...product, quantity: 1 });
-		if (!existingCartItem) cart.push(newCartItem);
-	}
+	const addProduct = (id) => {
+		const product = products.find((element) => element.id === id);
+		if (product) cart.push({ ...product, quantity: 1 });
+	};
+
+	const existingCartItem = cart.find((element) => element.id === id);
+	existingCartItem ? existingCartItem.quantity++ : addProduct(id);
+	console.log(cart);
 };
 
 // Exercise 2
