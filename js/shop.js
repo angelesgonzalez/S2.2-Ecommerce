@@ -6,17 +6,6 @@ let total = 0;
 
 // Exercise 1
 window.buy = function (id) {
-	// const addProduct = (id) => {
-	// 	const product = products.find((element) => element.id === id);
-	// 	if (product)
-	// 		cart.push({
-	// 			...product,
-	// 			quantity: 1,
-	// 			getSubtotal: function () {
-	// 				return this.price * this.quantity;
-	// 			},
-	// 		});
-	// };
 
 	const addProduct = (id) => {
 		const product = products.find((element) => element.id === id);
@@ -46,7 +35,7 @@ window.buy = function (id) {
 	}
 
 	calculateTotal();
-	// printCart();
+
 };
 
 // Exercise 2
