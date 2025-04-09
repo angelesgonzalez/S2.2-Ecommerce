@@ -20,17 +20,21 @@ window.buy = function (id) {
 
 	const existingCartItem = cart.find((element) => element.id === id);
 	existingCartItem ? existingCartItem.quantity++ : addProduct(id);
+
 	calculateSubtotals();
 	calculateTotal();
 };
 
 // Exercise 2
+const cleanHTML = (id, update) => {
+	const htmlElement = document.getElementById(`${id}`);
+	if (htmlElement) htmlElement.innerHTML = update;
+};
+
 window.cleanCart = function () {
-	const cartList = document.getElementById("cart_list");
-	const totalPrice = document.getElementById("total_price");
 	cart.length = 0;
-	if (cartList) cartList.innerHTML = "";
-	if (totalPrice) totalPrice.innerHTML = 0;
+	cleanHTML("cart_list", "");
+	cleanHTML("total_price", 0);
 };
 
 // Exercise 3
@@ -57,6 +61,12 @@ function calculateSubtotals() {
 }
 
 // Exercise 5
+// Ya has desarrollado toda la lógica básica de la aplicación, ha llegado el momento de mostrar al usuario el carrito de compras.
+
+// El código encargado de mostrar el carrito de compras en el modal con id "cartModal" debe incluirse dentro de la función printCart(). Te proporcionamos ya creada la maquetación de la tabla de productos, solo será necesario modificarla para que sea dinámica.
+
+// El modal del carrito se abre al presionar el botón del carrito en la parte superior derecha de la pantalla.
+
 function printCart() {
 	// Fill the shopping cart modal manipulating the shopping cart dom
 }
