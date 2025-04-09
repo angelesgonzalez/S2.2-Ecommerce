@@ -23,6 +23,7 @@ window.buy = function (id) {
 
 	calculateSubtotals();
 	calculateTotal();
+	printCart();
 };
 
 // Exercise 2
@@ -67,8 +68,58 @@ function calculateSubtotals() {
 
 // El modal del carrito se abre al presionar el botón del carrito en la parte superior derecha de la pantalla.
 
+/* 
+
+<tbody id="cart_list">
+	<tr>
+	<th scope="row">Cooking oil</th> name
+	<td>$10.5</td> / price
+    <td>2</td> /quantity
+	<td>$21</td> / price with discount (subtotal)
+	</tr>
+
+*/
+//tr -> table row
+//th- table header
+// td -> table cells
+
+const addProductToCart = (product) => {
+	const cartList = document.getElementById("cart_list");
+	const productRow = document.createElement("tr");
+	const productHeader = document.createElement("th");
+	const productPrice = document.createElement("td");
+	const productQuantity = document.createElement("td");
+	const productSubtotal = document.createElement("td");
+
+	productRow.id = `${product.id}`;
+	productRow.setAttribute("scope", "row");
+	productHeader.textContent = `${product.name}`;
+	productPrice.textContent = `$${product.price}`;
+	productPrice.id = `${product.id}-price`;
+	productQuantity.textContent = `${product.quantity}`;
+	productQuantity.id = `${product.id}-quantity`;
+	productSubtotal.textContent = product.subTotalWithDiscount
+		? `$${product.subTotalWithDiscount}`
+		: `$${product.subTotal}`;
+	productSubtotal.id = `${product.id}-subtotal`;
+
+	productRow.append(
+		productHeader,
+		productPrice,
+		productQuantity,
+		productSubtotal
+	);
+
+	cartList.appendChild(productRow);
+};
+
+const updateProductInCart = (product, row) => {
+	//     buscar las celdas dentro del row que contienen la cantidad y el subtotal
+	// actualizarlas con los nuevos valores del producto
+};
+
 function printCart() {
-	// Fill the shopping cart modal manipulating the shopping cart dom
+	cart.forEach(addProductToCart);
 }
 
 // ** Nivell II **
