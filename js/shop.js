@@ -6,24 +6,47 @@ let total = 0;
 
 // Exercise 1
 window.buy = function (id) {
+	// const addProduct = (id) => {
+	// 	const product = products.find((element) => element.id === id);
+	// 	if (product)
+	// 		cart.push({
+	// 			...product,
+	// 			quantity: 1,
+	// 			getSubtotal: function () {
+	// 				return this.price * this.quantity;
+	// 			},
+	// 		});
+	// };
+
 	const addProduct = (id) => {
 		const product = products.find((element) => element.id === id);
-		if (product)
-			cart.push({
+
+		if (product) {
+			const newProduct = {
 				...product,
 				quantity: 1,
 				getSubtotal: function () {
 					return this.price * this.quantity;
 				},
-			});
+			};
+			newProduct.subTotal = newProduct.getSubtotal();
+			cart.push(newProduct);
+			addProductToCart(newProduct);
+		}
 	};
 
 	const existingCartItem = cart.find((element) => element.id === id);
-	existingCartItem ? existingCartItem.quantity++ : addProduct(id);
 
-	calculateSubtotals();
+	if (existingCartItem) {
+		existingCartItem.quantity++;
+		calculateDiscount(existingCartItem);
+		updateProductInCart(existingCartItem);
+	} else {
+		addProduct(id);
+	}
+
 	calculateTotal();
-	printCart();
+	// printCart();
 };
 
 // Exercise 2
@@ -47,41 +70,18 @@ function calculateTotal() {
 }
 
 // Exercise 4
-function calculateSubtotals() {
-	cart.forEach((element) => {
-		const subTotal = element.getSubtotal();
-		if (element.offer && element.quantity >= element.offer.number) {
-			element.subTotalWithDiscount = Math.round(
-				subTotal * (1 - element.offer.percent / 100)
-			);
-			element.subTotal = subTotal;
-		} else {
-			element.subTotal = subTotal;
-		}
-	});
-}
+
+const calculateDiscount = (element) => {
+	const subTotal = element.getSubtotal();
+	if (element.offer && element.quantity >= element.offer.number) {
+		element.subTotalWithDiscount = Math.round(
+			subTotal * (1 - element.offer.percent / 100)
+		);
+	}
+	element.subTotal = subTotal;
+};
 
 // Exercise 5
-// Ya has desarrollado toda la lógica básica de la aplicación, ha llegado el momento de mostrar al usuario el carrito de compras.
-
-// El código encargado de mostrar el carrito de compras en el modal con id "cartModal" debe incluirse dentro de la función printCart(). Te proporcionamos ya creada la maquetación de la tabla de productos, solo será necesario modificarla para que sea dinámica.
-
-// El modal del carrito se abre al presionar el botón del carrito en la parte superior derecha de la pantalla.
-
-/* 
-
-<tbody id="cart_list">
-	<tr>
-	<th scope="row">Cooking oil</th> name
-	<td>$10.5</td> / price
-    <td>2</td> /quantity
-	<td>$21</td> / price with discount (subtotal)
-	</tr>
-
-*/
-//tr -> table row
-//th- table header
-// td -> table cells
 
 const addProductToCart = (product) => {
 	const cartList = document.getElementById("cart_list");
@@ -98,10 +98,10 @@ const addProductToCart = (product) => {
 	productPrice.id = `${product.id}-price`;
 	productQuantity.textContent = `${product.quantity}`;
 	productQuantity.id = `${product.id}-quantity`;
+	productSubtotal.id = `${product.id}-subtotal`;
 	productSubtotal.textContent = product.subTotalWithDiscount
 		? `$${product.subTotalWithDiscount}`
 		: `$${product.subTotal}`;
-	productSubtotal.id = `${product.id}-subtotal`;
 
 	productRow.append(
 		productHeader,
@@ -113,12 +113,18 @@ const addProductToCart = (product) => {
 	cartList.appendChild(productRow);
 };
 
-const updateProductInCart = (product, row) => {
-	//     buscar las celdas dentro del row que contienen la cantidad y el subtotal
-	// actualizarlas con los nuevos valores del producto
+const updateProductInCart = (product) => {
+	const productQuantity = document.getElementById(`${product.id}-quantity`);
+	const productSubtotal = document.getElementById(`${product.id}-subtotal`);
+
+	productQuantity.textContent = product.quantity;
+	productSubtotal.textContent = product.subTotalWithDiscount
+		? `$${product.subTotalWithDiscount}`
+		: `$${product.subTotal}`;
 };
 
 function printCart() {
+	cleanHTML("cart_list", "");
 	cart.forEach(addProductToCart);
 }
 
