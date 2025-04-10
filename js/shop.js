@@ -34,7 +34,7 @@ window.buy = function (id) {
 	}
 
 	calculateTotal();
-	updateHTML("total_price", total);
+	updateHTML("total_price", `$${total}`);
 	updateHTML("count_product", cart.length);
 };
 
