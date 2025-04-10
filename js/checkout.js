@@ -15,7 +15,11 @@ add eventlistener onchange
 !5- Password needs to have at least 6 carachters + one letter & one number
 !6- email needs to have email format. 
 !Invalid phone number!! Must be 9 digits with no
-							letters
+!when input is invalid, add is-invalid class to the element 
+!password (4-8 characters)"
+
+
+							
 
  * Todos los campos son obligatorios.
  * Todos los campos deben tener al menos 3 caracteres.
@@ -26,55 +30,87 @@ add eventlistener onchange
  *Cuando el/la usuario/a introduzca un campo que no cumpla con las validaciones anteriores, el input debe resaltarse en rojo y mostrar un mensaje en la parte inferior.
 *Ayuda: podrás colorear el borde del input en rojo y mostrar el mensaje de error manipulando el DOM, aunque también puedes usar la clase is-invalid de Bootstrap.
 
+1- required already in html
+2- every input needs to check that is not null === '' 
+3- Name & LastName only letters, not null
+
+
+
+
 */
 
+document.addEventListener("DOMContentLoaded", (event) => {
+	const inputs = document.querySelectorAll("input");
 
+	inputs.forEach((input) => {
+		input.addEventListener("change", (event) => {
+			validateField(event.target);
+		});
+	});
+});
 
+const validateField = (element) => {
+	const error = validations(element);
 
+	if (error) {
+		showError(element, error);
+	} else {
+		element.classList.remove("is-invalid");
+	}
+};
 
+const validations = (element) => {
+	const value = element.value.trim();
 
+	let errorMessage = "";
+
+	if (value === "" || value.length < 3) {
+		errorMessage = `Please insert at least 3 characters.`;
+	}
+
+	if (element.id === "fLastN" || element.id === "fName") {
+		// 	for (let char of str) {
+		// 		const character = char.charCodeAt(0);
+		//  }
+	}
+
+	const hasNonLetters = (string) => {};
+
+	// 'A' a 'Z' van del 65 al 90
+	// •	'a' a 'z' van del 97 al 122
+
+	return errorMessage;
+};
+
+const showError = (element, error) => {
+	const errorDiv = element.nextElementSibling;
+	errorDiv.textContent = error;
+	element.classList.add("is-invalid");
+};
 
 // Exercise 6
-function validate() {
-	let error = 0;
-	// Get the input fields
-	const fName = document.getElementById("fName");
-	const fEmail = document.getElementById("fEmail");
+// function validate() {
+// 	let error = 0;
+// 	// Get the input fields
+// 	const fName = document.getElementById("fName");
+// 	const fEmail = document.getElementById("fEmail");
 
-	// Get the error elements
-	const errorName = document.getElementById("errorName");
-	const errorEmail = document.getElementById("errorEmail");
+// 	// Get the error elements
+// 	const errorName = document.getElementById("errorName");
+// 	const errorEmail = document.getElementById("errorEmail");
 
-	// Validate fields entered by the user: name, phone, password, and email
-	if (fName.value == "") {
-		error++;
-	}
+// 	// Validate fields entered by the user: name, phone, password, and email
+// 	if (fName.value == "") {
+// 		error++;
+// 	}
 
-	if (fEmail.value == "") {
-		error++;
-	}
+// 	if (fEmail.value == "") {
+// 		error++;
+// 	}
 
-	if (error > 0) {
-		alert("Error");
-	} else {
-		alert("OK");
-	}
-}
-
-
-
-/*
-
-!firtName -> fName id="errorName"
-! lastName -> id="fLastN" id="errorLastN"
-!id="fEmail" id="errorEmail"
-!id="fAddress"  id="errorAddress"
- !id="fPassword" id="errorPassword"
-!id="fPhone" id="errorPhone" 
-!<form class="form" id="checkout-form">
-!id="btn" 
-	
-
-
-
-*/
+// 	if (error > 0) {
+// 		alert("Error");
+// 	} else {
+// 		alert("OK");
+// 	}
+// }
