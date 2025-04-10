@@ -9,7 +9,6 @@ let total = 0;
 window.buy = function (id) {
 	const addProduct = (id) => {
 		const product = products.find((element) => element.id === id);
-
 		if (product) {
 			const newProduct = {
 				...product,
@@ -73,8 +72,7 @@ const calculateDiscount = (element) => {
 
 // Exercise 5
 
-const addProductToCart = (product) => {
-	const cartList = document.getElementById("cart_list");
+const createCartRow = (product) => {
 	const productRow = document.createElement("tr");
 	const productHeader = document.createElement("th");
 	const productPrice = document.createElement("td");
@@ -99,7 +97,12 @@ const addProductToCart = (product) => {
 		productQuantity,
 		productSubtotal
 	);
+	return productRow;
+};
 
+const addProductToCart = (product) => {
+	const cartList = document.getElementById("cart_list");
+	const productRow = createCartRow(product);
 	cartList.appendChild(productRow);
 };
 
