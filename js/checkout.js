@@ -12,7 +12,7 @@ add eventlistener onchange
 !2- if(at least one is not filled) - return
 !3- if (at least one of the inputs don't have 3 caracters ) - return
 !4- validationName - LastName -> only letters
-!5- Password needs to have at least 6 carachters + one letter & one number
+!5- Password needs to have at least 4 carachters + one letter & one number
 !6- email needs to have email format. 
 !Invalid phone number!! Must be 9 digits with no
 !when input is invalid, add is-invalid class to the element 
@@ -50,7 +50,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
 });
 
 const validateField = (element) => {
-	const error = validations(element);
+	const error = getValidations(element);
 
 	if (error) {
 		showError(element, error);
@@ -59,27 +59,56 @@ const validateField = (element) => {
 	}
 };
 
-const validations = (element) => {
+const getValidations = (element) => {
 	const value = element.value.trim();
 
 	let errorMessage = "";
 
 	if (value === "" || value.length < 3) {
-		errorMessage = `Please insert at least 3 characters.`;
+		return (errorMessage = `Please insert at least 3 characters.`);
 	}
 
 	if (element.id === "fLastN" || element.id === "fName") {
-		// 	for (let char of str) {
-		// 		const character = char.charCodeAt(0);
-		//  }
+		if (!hasOnlyLetters(value)) {
+			return (errorMessage = `Please use letters only. Numbers and special characters are not allowed.`);
+		}
 	}
 
-	const hasNonLetters = (string) => {};
+	if (element.id === "fEmail") {
+		if (!isValidEmail(value)) {
+			return (errorMessage = `Please enter a valid email address. Example: name@example.com`);
+		}
+	}
 
-	// 'A' a 'Z' van del 65 al 90
-	// •	'a' a 'z' van del 97 al 122
+	if (element.id === "fPassword") {
+		if (value.length < 4) {
+			return (errorMessage = `Password needs to be at least 4 characters long.`);
+		}
+
+		if (!isValidPassword(value)) {
+			return (errorMessage = `Password needs to include at least one letter and one number.`);
+		}
+	}
 
 	return errorMessage;
+};
+
+const hasOnlyLetters = (string) => {
+	const regex = /^[A-Za-z]+$/;
+	return regex.test(string);
+};
+
+const isValidEmail = (email) => {
+	const regex =
+		/^(?!\.)(?!.*\.\.)[a-zA-Z0-9._%+-]+(?<!\.)@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+	return regex.test(email);
+};
+
+const isValidPassword = (password) => {
+	const hasLetter = /[A-Za-z]/.test(password);
+	const hasNumber = /\d/.test(password);
+
+	return hasLetter && hasNumber;
 };
 
 const showError = (element, error) => {
@@ -88,29 +117,3 @@ const showError = (element, error) => {
 	element.classList.add("is-invalid");
 };
 
-// Exercise 6
-// function validate() {
-// 	let error = 0;
-// 	// Get the input fields
-// 	const fName = document.getElementById("fName");
-// 	const fEmail = document.getElementById("fEmail");
-
-// 	// Get the error elements
-// 	const errorName = document.getElementById("errorName");
-// 	const errorEmail = document.getElementById("errorEmail");
-
-// 	// Validate fields entered by the user: name, phone, password, and email
-// 	if (fName.value == "") {
-// 		error++;
-// 	}
-
-// 	if (fEmail.value == "") {
-// 		error++;
-// 	}
-
-// 	if (error > 0) {
-// 		alert("Error");
-// 	} else {
-// 		alert("OK");
-// 	}
-// }
