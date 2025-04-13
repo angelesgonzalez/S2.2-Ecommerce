@@ -1,66 +1,130 @@
-# Sprint 2 IT Academy | Shop
+# 🛒 Sprint 2 - E-Commerce Cart Demo – Level 1
 
-## Introduction
+This is a front-end project created as part of ITACADEMY Front-End Bootcamp. The goal is to implement a basic shopping cart experience using vanilla JavaScript. The user can add and remove items, apply discounts, and validate a checkout form. No back-end or API integration is used; all data is hardcoded.
 
-A company in the e-commerce sector has asked us for a web application that allows them to offer the purchase of their products through the internet.
+Each exercise was developed in its own feature branch, following this convention:  
+`level-1/exercise-#`.
 
-You will be in charge of setting up an initial demo version of the application for the client: management of the shopping cart and the application of the promotions on the final price. You have 1 week to finish this part of sprint (2.2).
+---
 
-<br>
+## 🚀 Technologies Used
 
-## Requirements
+- HTML, CSS (Bootstrap for some styles).
+- Vanilla JavaScript
+- RegEx for form validation
 
+---
 
-1. Clone this repo
-```bash
-$ git clone https://github.com/IT-Academy-BCN/starter-code-frontend-shop
+## 🗂️ Project Structure
+
+```
+📁 css
+   └── styles.css
+
+📁 images
+   ├── favicon.ico
+   └── product.svg
+
+📁 js
+   ├── checkout.js
+   ├── dummyData.js
+   └── shop.js
+
+.gitignore
+checkout.html
+index.html
+README.md
 ```
 
-2. Unlink your repo from the itacademy repository.
-(Explanation: You have to upload the code to your GitHub repository, not to the IT Academy. That's why you have to unlink your project from IT Academy GitHub with the following command)
+## ✅ Exercises Overview
 
-```bash
-$ git remote rm origin
-```
+### 🧩 Exercise 1: Add Products to Cart
 
-3. Link your repo to the repository you have to create in your github account
-(Explanation: Now your project is not linked to any remote repository. In order to upload your code, you have to link your project to the new repository created on github.com using the following command)
+- Implemented the `buy()` function, which allows users to add products to the cart.
+- Used an object-based approach with a `getSubtotal()` method inside each product.
+- Each product tracks its own quantity and subtotal.
+- If the product already exists in the cart, the quantity is incremented and discount recalculated.
 
-```bash
-$ git remote add origin <your repo name!>
-```
+📸 **Demo**  
+![General Demo*](images/readme-demo-1.gif)
+---
 
-<br>
+### 🧹 Exercise 2: Clean Cart
 
-## Submission
+- Created a reusable `updateHTML()` function to clean up and update repetitive DOM updates.
+- `cleanCart()` resets the cart array and uses `updateHTML()` to clear UI content.
 
-1. It is necessary to upload each exercise in a separate commit. The commit name must clearly indicate its content.
+**Design Decision:**  
 
-2. Upload the link to your GitHub repository to the virtual campus, enabling your mentor to review and provide feedback.
+- Instead of reassigning the `cart` variable to a new empty array, I used `cart.length = 0` to preserve the original array reference. This helps maintain consistency if other parts of the application rely on the same `cart` instance.
+- Originally created a separate function (`removeHTML`) for clearing content, but then refactored to a general-purpose utility called `updateHTML()` to follow DRY principles.
 
+---
 
+### ➕ Exercise 3: Calculate Cart Total
 
-<br>
+- Implemented a `calculateTotal()` function that loops through the cart.
+- Used the nullish coalescing operator `??` to choose between discounted and regular subtotal.
 
-## Introduction
+---
 
-The statement of the exercise is available on the virtual campus.
+### 🏷️ Exercise 4: Apply Promotions
 
-<br>
+- Implemented logic to apply two types of discounts:
+  - Buy 3+ cooking oils → 20% off
+  - Buy 10+ cupcake mixtures → 30% off
+- Discounts are applied dynamically and saved in a new `subTotalWithDiscount` property.
+- The function `calculateDiscount()` is called only when quantities update.
 
+📸 **Demo Discounts**  
+![Demo of Exercise 4 feature*](images/readme-discount.gif)
 
-## Instructions
+---
 
-You have the following indications from the frontend manager:
+### 🖼️ Exercise 5: Display the Cart in Modal
 
-- You have prepared the base of the project on which you will work: https://github.com/IT-Academy-BCN/starter-code-frontend-shop
+- Created DOM elements using `createElement()` rather than injecting HTML directly, for better structure and safety.
+- Split responsibilities:
+  - `createCartRow()` builds the row structure.
+  - `addProductToCart()` appends rows to the cart modal.
+  - `updateProductInCart()` updates quantity and subtotal when products are modified.
 
-- The base of the project on which you will work has already created all the files, and an initial version of the interface, so you can focus on programming the logic.
+**Design Decision:**  
+ While more verbose, this approach ensures better control and maintainability over the cart’s dynamic content.
 
-- As at the moment we don't consume data from a server using an API, we will work with hardcoded data in the application. For the moment we will implement the logic using a small group of 9 products divided in 3 sections.
+📸 **Demo of Exercise 5 feature**  
+![Demo of Exercise 3 feature*](ruta/de/la/imagen.extensión)
 
-- Except for the last level, showing the result of the functions by console is enough.
+---
 
-- The logic to implement will be placed in the src/grocery.js and src/checkout.js files. You will see that the built in functions have already been created for you to implement them.
+### 📋 Exercise 6: Checkout Form Validation
 
-- It is forbidden to copy the code, since this way you don't learn anything. Furthermore, as you can see, the second release of sprint 5 is a mini-level test with the mentor, in which you will have to demonstrate live that you have acquired the javascript concepts. Don't worry, if you work on the releases you won't have any problems.
+- Implemented on-change field validation for immediate feedback.
+- Used regular expressions to validate:
+  - Name/surname (letters only)
+  - Phone number (9 digits)
+  - Email format
+  - Passwords (must include at least one number and one letter)
+- Validations also run on form submission.
+
+**Design Decision:**  
+Chose inline (with onChange event) validation to enhance user experience and deliberately practiced using RegEx.
+
+📸 **Demo in-line validations**  
+![Demo of Exercise 3 feature*](images/readme-validations.gif)
+
+---
+
+## 🧠 Key Learnings
+
+- How to manipulate the DOM with `createElement` for structured rendering.
+- Managing product state with methods and custom properties.
+- Creating reusable utilities to reduce redundancy.
+- Implementing form validation logic using JavaScript and RegEx.
+- Use branches and Pull Request to merge them.
+
+---
+
+## 🪄 Future Improvements
+
+- Use `try...catch` blocks to ensure that unexpected errors (e.g. missing DOM elements) don’t crash the app.
