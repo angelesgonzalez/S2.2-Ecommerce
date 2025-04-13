@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
 		});
 	});
 
-	form.addEventListener("submit", (event) => {
+	form?.addEventListener("submit", (event) => {
 		event.preventDefault();
 		let hasError = false;
 		//Review globally if there's an error before sending the form.
