@@ -1,4 +1,4 @@
-# 🛒 Sprint 2 - E-Commerce Cart Demo – Level 1
+# 🛒 Sprint 2 - E-Commerce – Level 1
 
 This is a front-end project created as part of ITACADEMY Front-End Bootcamp. The goal is to implement a basic shopping cart experience using vanilla JavaScript. The user can add and remove items, apply discounts, and validate a checkout form. No back-end or API integration is used; all data is hardcoded.
 
