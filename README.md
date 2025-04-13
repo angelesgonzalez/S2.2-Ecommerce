@@ -92,9 +92,6 @@ README.md
 **Design Decision:**  
  While more verbose, this approach ensures better control and maintainability over the cart’s dynamic content.
 
-📸 **Demo of Exercise 5 feature**  
-![Demo of Exercise 3 feature*](ruta/de/la/imagen.extensión)
-
 ---
 
 ### 📋 Exercise 6: Checkout Form Validation
