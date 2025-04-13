@@ -125,3 +125,4 @@ Chose inline (with onChange event) validation to enhance user experience and del
 ## 🪄 Future Improvements
 
 - Use `try...catch` blocks to ensure that unexpected errors (e.g. missing DOM elements) don’t crash the app.
+- Do level 2 & 3 of the sprint.
