@@ -48,6 +48,7 @@ window.cleanCart = function () {
 	cart.length = 0;
 	updateHTML("cart_list", "");
 	updateHTML("total_price", 0);
+	updateHTML("count_product", 0);
 };
 
 // Exercise 3
