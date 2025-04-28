@@ -6,7 +6,7 @@ let total = 0;
 
 // Exercise 1
 
-window.buy = function (id) {
+window.buy = (id) => {
 	const addProduct = (id) => {
 		const product = products.find((element) => element.id === id);
 		if (product) {
@@ -44,7 +44,7 @@ const updateHTML = (id, update) => {
 	if (htmlElement) htmlElement.innerHTML = update;
 };
 
-window.cleanCart = function () {
+window.cleanCart = () => {
 	cart.length = 0;
 	updateHTML("cart_list", "");
 	updateHTML("total_price", 0);
@@ -52,12 +52,13 @@ window.cleanCart = function () {
 };
 
 // Exercise 3
-function calculateTotal() {
+
+const calculateTotal = () => {
 	total = 0;
 	for (let i = 0; i < cart.length; i++) {
 		total += cart[i].subTotalWithDiscount ?? cart[i].subTotal;
 	}
-}
+};
 
 // Exercise 4
 
