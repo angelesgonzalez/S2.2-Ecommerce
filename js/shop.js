@@ -35,7 +35,7 @@ window.buy = (id) => {
 
 	calculateTotal();
 	updateHTML("total_price", `$${total}`);
-	updateHTML("count_product", cart.length);
+	updateHTML("count_product", calculateTotalProducts(cart));
 };
 
 // Exercise 2
@@ -118,6 +118,9 @@ const updateProductInCart = (product) => {
 		? `$${product.subTotalWithDiscount}`
 		: `$${product.subTotal}`;
 };
+
+const calculateTotalProducts = (cart) =>
+	cart.reduce((total, product) => total + product.quantity, 0);
 
 // ** Nivell II **
 
