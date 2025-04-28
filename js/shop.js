@@ -14,7 +14,7 @@ window.buy = (id) => {
 				...product,
 				quantity: 1,
 				getSubtotal: function () {
-					return this.price * this.quantity;
+					return +(this.price * this.quantity).toFixed(2);
 				},
 			};
 			newProduct.subTotal = newProduct.getSubtotal();
@@ -65,9 +65,10 @@ const calculateTotal = () => {
 const calculateDiscount = (element) => {
 	const subTotal = element.getSubtotal();
 	if (element.offer && element.quantity >= element.offer.number) {
-		element.subTotalWithDiscount = Math.round(
-			subTotal * (1 - element.offer.percent / 100)
-		);
+		element.subTotalWithDiscount = +(
+			subTotal *
+			(1 - element.offer.percent / 100)
+		).toFixed(2);
 	}
 	element.subTotal = subTotal;
 };
